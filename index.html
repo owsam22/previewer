@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Web Previewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar glass">
+  <div class="logo">🌐 LivePreviewer</div>
+  <nav>
+    <a href="#how">How it Works</a>
+    <a href="#upload">Upload</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+    <h1>🚀 Instant Web Project Previewer</h1>
+    <p>Preview your HTML, CSS & JS projects live in the browser. No server needed. Just upload and go.</p>
+    <a href="#upload" class="cta-btn">Upload Now</a>
+  </section>
+
+  <section id="how" class="info glass">
+    <h2>📘 How It Works</h2>
+    <ol>
+      <li>Upload a folder or select files (HTML, CSS, JS).</li>
+      <li>We combine them and generate a live preview.</li>
+      <li>Use screen presets to preview as mobile or desktop.</li>
+    </ol>
+  </section>
+
+  <section id="upload" class="upload glass">
+  <h2>📂 Upload Your Files</h2>
+  <p>Select a folder, individual files, or drag & drop below:</p>
+
+  <div class="upload-buttons">
+    <div class="upload-block">
+      <label class="upload-label">
+        Upload Folder
+        <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+      </label>
+    </div>
+    <div class="upload-block">
+      <label class="upload-label">
+        Upload Files
+        <input type="file" id="fileInput" multiple hidden>
+      </label>
+    </div>
+  </div>
+
+  <div id="dropZone" class="drop-zone">
+    <p>⬇️ Drag & drop files or folders here</p>
+  </div>
+
+  <p id="uploadStatus">No files uploaded yet.</p>
+  <button id="runButton" disabled>▶️ Run Preview</button>
+</section>
+
+</main>
+
+<footer class="footer">
+  <p>🚀 Built by Sam | Preview your code live anytime</p>
+</footer>
+
+
+<script src="script.js"></script>
+</body>
+</html>
