@@ -9,7 +9,7 @@
 <body>
 
 <header class="navbar glass">
-  <div class="logo">🌐 LivePreviewer</div>
+  <div class="logo">🌐 Live Previewer</div>
   <nav>
     <a href="#how">How it Works</a>
     <a href="#upload">Upload</a>
@@ -21,7 +21,7 @@
   <section class="hero">
     <h1>🚀 Instant Web Project Previewer</h1>
     <p>Preview your HTML, CSS & JS projects live in the browser. No server needed. Just upload and go.</p>
-    <a href="#upload" class="cta-btn">Upload Now</a>
+    <a href="#uploadPanel" class="cta-btn">Upload Now</a>
   </section>
 
   <section id="how" class="info glass">
@@ -33,38 +33,60 @@
     </ol>
   </section>
 
-  <section id="upload" class="upload glass">
-  <h2>📂 Upload Your Files</h2>
-  <p>Select a folder, individual files, or drag & drop below:</p>
+  <section class="split-section">
 
-  <div class="upload-buttons">
-    <div class="upload-block">
-      <label class="upload-label">
-        Upload Folder
-        <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
-      </label>
-    </div>
-    <div class="upload-block">
-      <label class="upload-label">
-        Upload Files
-        <input type="file" id="fileInput" multiple hidden>
-      </label>
+  <div class="panel left-panel active" id="uploadPanel">
+    <div class="panel-content">
+      <h2>📂 Upload Files</h2>
+      <p>Select a folder or files or drag & drop them.</p>
+      <div class="upload-buttons">
+        <label class="upload-label">
+          Upload Folder
+          <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
+        </label>
+        <label class="upload-label">
+          Upload Files
+          <input type="file" id="fileInput" multiple hidden>
+        </label>
+      </div>
+      <div id="dropZone" class="drop-zone">
+        <p>⬇️ Drag & drop files or folders here</p>
+      </div>
+      <ul id="fileList"></ul>
+      <p id="uploadStatus">No files uploaded yet.</p>
+      <button id="runButton" disabled>▶️ Run Preview</button>
+      <p class="switch-btn">Or <span id="switchToPaste">paste code</span></p>
     </div>
   </div>
 
-  <div id="dropZone" class="drop-zone">
-    <p>⬇️ Drag & drop files or folders here</p>
+  <div class="panel right-panel" id="pastePanel">
+    <div class="panel-content">
+      <h2>✍️ Paste Code</h2>
+      <p>Paste HTML, CSS, and JS below</p>
+      <label>HTML:</label>
+      <textarea id="htmlInput" placeholder="Paste your HTML here..."></textarea>
+      <label>CSS:</label>
+      <textarea id="cssInput" placeholder="Paste your CSS here..."></textarea>
+      <label>JavaScript:</label>
+      <textarea id="jsInput" placeholder="Paste your JS here..."></textarea>
+      <button id="runButtonPaste">▶️ Run Preview</button>
+      <p class="switch-btn">Or <span id="switchToUpload">upload files</span></p>
+    </div>
   </div>
 
-  <p id="uploadStatus">No files uploaded yet.</p>
-  <button id="runButton" disabled>▶️ Run Preview</button>
 </section>
+
 
 </main>
 
-<footer class="footer">
-  <p>🚀 Built by Sam | Preview your code live anytime</p>
+<footer>
+  <p>🚀 Built with ❤️ by <strong>Sam</strong></p>
+  <p>
+    <a href="https://instagram.com/your_instagram" target="_blank">📸 Instagram</a> |
+    <a href="https://github.com/your_github" target="_blank">💻 GitHub</a>
+  </p>
 </footer>
+
 
 
 <script src="script.js"></script>
