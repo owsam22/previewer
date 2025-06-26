@@ -11,7 +11,7 @@
     }
 
     .preview-header {
-      padding: 1rem 2rem;
+      padding: 2rem 3rem;
       background: rgba(255, 255, 255, 0.7);
       backdrop-filter: blur(10px);
       display: flex;
@@ -74,18 +74,22 @@
 <body>
 
   <header class="preview-header">
-    <h1>🔍 Live Preview</h1>
+    <h1>🔍 Live Previewer</h1>
     <div class="button-group">
-      <button onclick="restartPreview()">🔄 Restart</button>
-      <button onclick="goHome()">🏠 Home</button>
+      <button onclick="restartPreview()">Restart</button>
+      <button onclick="goHome()">Home</button>
     </div>
   </header>
 
   <div class="preview-container">
     <iframe id="previewFrame"></iframe>
   </div>
-<footer class="footer">
-  <p>🚀 Built by Sam | Preview your code live anytime</p>
+<footer>
+  <p>🚀 Built with ❤️ by <strong>Sam</strong></p>
+  <p>
+    <a href="https://instagram.com/your_instagram" target="_blank">📸 Instagram</a> |
+    <a href="https://github.com/your_github" target="_blank">💻 GitHub</a>
+  </p>
 </footer>
 
   <script>
