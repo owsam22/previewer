@@ -6,12 +6,15 @@
 }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ecf0f3, #f8fbff);
+  background: linear-gradient(to right, #e0efff, #efe2ff);
   color: #222;
 }
 a {
   text-decoration: none;
   color: #2563eb;
+}
+a:hover{
+  color: #437eff;
 }
 .container {
   padding: 2rem;
@@ -22,7 +25,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 2rem 3rem;
   position: sticky;
   top: 0;
   z-index: 999;
@@ -62,6 +65,113 @@ a {
   border-radius: 8px;
 }
 
+/* SPLIT PANEL (DESKTOP) */
+.split-section {
+  display: flex;
+  max-width: 1000px;
+  margin: 2rem auto;
+  height: 600px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.5s ease;
+}
+
+.panel {
+  flex: 1;
+  transition: all 0.5s ease;
+  background: white;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.panel-content {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+.panel textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 1rem;
+  padding: 0.6rem;
+  font-family: monospace;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+.panel button {
+  background: #2563eb;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.panel .switch-btn {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.panel .switch-btn span {
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* ACTIVE PANEL */
+.left-panel.active {
+  flex: 4;
+}
+.right-panel.active {
+  flex: 4;
+}
+.left-panel:not(.active),
+.right-panel:not(.active) {
+  flex: 1;
+  background: #f8fafc;
+  color: #94a3b8;
+}
+.left-panel:not(.active) .panel-content,
+.right-panel:not(.active) .panel-content {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* 📱 MOBILE STYLING */
+@media (max-width: 768px) {
+  .split-section {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .panel {
+    width: 100%;
+    flex: 0 0 100%;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .left-panel,
+  .right-panel {
+    display: none;
+  }
+
+  .left-panel.active,
+  .right-panel.active {
+    display: block;
+  }
+
+  .panel-content {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .panel textarea {
+    height: 80px;
+  }
+}
+
 /* Upload */
 .upload, .info {
   padding: 2rem;
@@ -90,6 +200,9 @@ a {
   border-radius: 8px;
   cursor: pointer;
 }
+
+
+
 .drop-zone {
   margin-top: 1rem;
   padding: 2rem;
@@ -126,48 +239,44 @@ a {
   cursor: not-allowed;
 }
 
-/* Footer */
-/* ==== NAVBAR ==== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.nav-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2563eb;
-}
-.nav-links a {
-  margin-left: 1.5rem;
-  text-decoration: none;
-  color: #1e40af;
-  font-weight: 500;
-}
-.nav-links a:hover {
-  color: #1d4ed8;
-}
 
 /* ==== FOOTER ==== */
-.footer {
-  text-align: center;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
-  color: #555;
-  font-size: 0.9rem;
-  position: relative;
-  bottom: 0;
+footer {
   width: 100%;
-  margin-top: 4rem;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.03);
+  text-align: center;
+  background: linear-gradient(to top, #b5d9ff, #8fabff);
+  color: #4e342e;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  padding: 16px 10px;
+  margin-top: auto;
+  font-size: 0.95rem;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.7px;
+}
+
+footer a {
+  color: #ff5722;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 4px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #e65100;
+}
+
+/* 📱 Mobile-friendly adjustments */
+@media screen and (max-width: 480px) {
+  footer {
+    font-size: 0.85rem;
+    padding: 12px 6px;
+  }
+
+  footer a {
+    display: inline-block;
+    margin: 6px 8px;
+  }
 }
 
 
