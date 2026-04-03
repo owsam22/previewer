@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     body {
       background: var(--bg-color);
@@ -46,10 +47,6 @@
       align-items: center;
       gap: 8px;
     }
-    
-    .preview-header h1 .emoji {
-      font-size: 1.2rem;
-    }
 
     .button-group {
       display: flex;
@@ -62,7 +59,7 @@
 
     .preview-btn {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem; 
+      font-size: 1.1rem; 
       padding: 0.4rem 0.8rem;
       background: transparent;
       color: var(--text-light);
@@ -187,27 +184,29 @@
         width: 100% !important; 
       }
       .device-wrapper { padding: 1rem; }
-      .button-group { flex-wrap: wrap; }
+      .preview-header { padding: 0.8rem 1rem; }
+      .header-center { display: none !important; } /* Hide device toggles on phone view */
+      .action-btn span { display: none; } /* Hide text, just show icons */
+      .button-group { gap: 0.2rem; }
+      .preview-btn.action-btn { padding: 0.4rem; }
     }
-    
-    /* Removed extra .btn styles */
   </style>
 </head>
 <body>
 
   <header class="preview-header">
     <div class="header-left">
-      <h1><span class="emoji">🔍</span> Live Preview</h1>
+      <h1><i data-lucide="search"></i> Live Preview</h1>
     </div>
     <div class="header-center button-group">
-      <button class="preview-btn" onclick="setDevice('desktop')" title="Desktop">🖥️</button>
-      <button class="preview-btn" onclick="setDevice('tablet')" title="Tablet">📱</button>
-      <button class="preview-btn" onclick="setDevice('mobile')" title="Mobile">📱</button>
+      <button class="preview-btn" onclick="setDevice('desktop')" title="Desktop"><i data-lucide="monitor"></i></button>
+      <button class="preview-btn" onclick="setDevice('tablet')" title="Tablet"><i data-lucide="tablet"></i></button>
+      <button class="preview-btn" onclick="setDevice('mobile')" title="Mobile"><i data-lucide="smartphone"></i></button>
     </div>
     <div class="header-right button-group">
-      <button class="preview-btn action-btn" onclick="sharePreview()" title="Share Preview">🔗 Share</button>
-      <button class="preview-btn action-btn" onclick="restartPreview()" title="Restart">🔄 Restart</button>
-      <button class="preview-btn action-btn primary-action" onclick="goHome()" title="Home">🏠 Home</button>
+      <button class="preview-btn action-btn" onclick="sharePreview()" title="Share Preview"><i data-lucide="link"></i> <span>Share</span></button>
+      <button class="preview-btn action-btn" onclick="restartPreview()" title="Restart"><i data-lucide="rotate-cw"></i> <span>Restart</span></button>
+      <button class="preview-btn action-btn primary-action" onclick="goHome()" title="Home"><i data-lucide="home"></i> <span>Home</span></button>
     </div>
   </header>
 
@@ -219,12 +218,13 @@
           <div class="dot yellow"></div>
           <div class="dot green"></div>
         </div>
-        <div class="url-bar">localhost:preview</div>
+        <div class="url-bar">owsam22:preview</div>
       </div>
       <iframe id="previewFrame"></iframe>
     </div>
   </div>
   
+  <script>lucide.createIcons();</script>
   <script type="module" src="./src/preview.ts"></script>
 </body>
 </html>
