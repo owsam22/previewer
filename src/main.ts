@@ -232,10 +232,12 @@ window.addEventListener('DOMContentLoaded', () => {
             const pasteTab = document.querySelector('[data-target="pastePanel"]') as HTMLElement;
             if (pasteTab) pasteTab.click();
 
-            setTimeout(() => {
-                const runBtnPaste = document.getElementById('runButtonPaste');
-                if (runBtnPaste) runBtnPaste.click();
-            }, 300);
+            if (!urlParams.get('edit')) {
+                setTimeout(() => {
+                    const runBtnPaste = document.getElementById('runButtonPaste');
+                    if (runBtnPaste) runBtnPaste.click();
+                }, 300);
+            }
             return;
         } catch (e) {
             console.error("Failed to parse paste URL", e);
@@ -263,10 +265,12 @@ window.addEventListener('DOMContentLoaded', () => {
             if (ghTab) ghTab.click();
 
             // Auto-trigger fetch
-            setTimeout(() => {
-                const runBtnGithub = document.getElementById('runButtonGithub');
-                if (runBtnGithub) runBtnGithub.click();
-            }, 300);
+            if (!urlParams.get('edit')) {
+                setTimeout(() => {
+                    const runBtnGithub = document.getElementById('runButtonGithub');
+                    if (runBtnGithub) runBtnGithub.click();
+                }, 300);
+            }
         }
     }
 });

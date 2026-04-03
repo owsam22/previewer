@@ -16,6 +16,15 @@ if (html && iframe) {
   window.location.href = 'index.html';
 };
 
+(window as any).backToCode = () => {
+  const token = localStorage.getItem("previewSourceToken");
+  if (token && (token.startsWith("?paste=") || token.startsWith("?repo="))) {
+      window.location.href = 'index.html' + token + '&edit=true';
+  } else {
+      window.history.back();
+  }
+};
+
 (window as any).setDevice = (type: string) => {
   if (deviceFrame) {
     deviceFrame.className = 'preview-container ' + type;

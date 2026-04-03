@@ -134,6 +134,29 @@
       border-bottom: 1px solid var(--border-color);
     }
 
+    .back-to-code-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-code-btn:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
     .dots {
       display: flex;
       gap: 8px;
@@ -213,6 +236,7 @@
   <div class="device-wrapper">
     <div class="preview-container" id="deviceFrame">
       <div class="browser-frame">
+        <button class="back-to-code-btn" onclick="backToCode()" title="Back to Code"><i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i> <span>Back</span></button>
         <div class="dots">
           <div class="dot red"></div>
           <div class="dot yellow"></div>
