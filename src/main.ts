@@ -182,6 +182,28 @@ runBtnPaste?.addEventListener('click', () => {
 const runBtnGithub = document.getElementById('runButtonGithub');
 runBtnGithub?.addEventListener('click', handleGitHubSubmit);
 
+const shareButton = document.getElementById('shareButton');
+if (shareButton) {
+  shareButton.addEventListener('click', async () => {
+    const shareData = {
+      title: 'Live Web Previewer',
+      text: 'Check out this awesome Live Web Previewer! It lets you instantly preview your HTML, CSS, and JS projects without a server.',
+      url: window.location.origin
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.origin);
+        alert('Website URL copied to clipboard!');
+      }
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  });
+}
+
 export function resetAppState() {
     filesMap = {};
     updateReadyStatus("Started anew. Upload files to continue.");

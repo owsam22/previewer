@@ -84,6 +84,10 @@ a:hover {
 .navbar:hover {
   transform: translateY(-2px);
 }
+.navbar nav {
+  display: flex;
+  align-items: center;
+}
 .navbar nav a {
   margin-left: 1.5rem;
   color: var(--text-main);
@@ -91,6 +95,30 @@ a:hover {
 .navbar nav a:hover {
   color: var(--accent);
 }
+
+.btn-share {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+}
+.btn-share:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
 .logo {
   font-size: 1.5rem;
   color: var(--primary);
