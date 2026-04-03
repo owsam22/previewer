@@ -5,28 +5,29 @@
   <title>Live Web Previewer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
 <header class="navbar glass">
-  <div class="logo">🌐 Live Previewer</div>
-  <nav style="display: flex; align-items: center; gap: 1rem;">
+  <div class="logo"><i data-lucide="globe"></i> Live Previewer</div>
+  <nav class="nav-links">
     <a href="#how" style="margin-left: 0;">How it Works</a>
-    <button id="shareButton" class="btn-share" title="Share this website">🔗 Share</button>
+    <a href="https://github.com/owsam22/previewer" target="_blank" class="btn-github"><i data-lucide="github"></i> <span class="hide-mobile">Star Repo</span></a>
+    <button id="shareButton" class="btn-share" title="Share this website"><i data-lucide="link"></i> <span class="hide-mobile">Share</span></button>
   </nav>
 </header>
 
 <main class="container">
   <section class="hero">
-    <h1>🚀 Instant Web Project Previewer</h1>
+    <h1><i data-lucide="rocket"></i> Instant Web Project Previewer</h1>
     <p>Preview your HTML, CSS & JS projects live in the browser. No server needed.</p>
   </section>
 
   <section id="how" class="info glass">
-    <h2>📘 How It Works</h2>
+    <h2><i data-lucide="book-open"></i> How It Works</h2>
     <ol>
       <li><strong>Upload</strong> a folder, <strong>Paste</strong> code snippets, or fetch a <strong>GitHub Repo</strong>.</li>
       <li>We instantly combine files and dependencies locally in your browser.</li>
@@ -36,40 +37,40 @@
 
   <section class="app-section">
     <div class="tabs">
-      <button class="tab-btn active" data-target="uploadPanel">📂 Upload</button>
-      <button class="tab-btn" data-target="pastePanel">✍️ Paste Code</button>
-      <button class="tab-btn" data-target="githubPanel">🐙 GitHub</button>
+      <button class="tab-btn active" data-target="uploadPanel"><i data-lucide="folder-open"></i> Upload</button>
+      <button class="tab-btn" data-target="pastePanel"><i data-lucide="pen-tool"></i> Paste Code</button>
+      <button class="tab-btn" data-target="githubPanel"><i data-lucide="github"></i> GitHub</button>
     </div>
 
     <div class="panel-container glass">
       <!-- UPLOAD PANEL -->
       <div class="panel active" id="uploadPanel">
         <div class="panel-content">
-          <h2>📂 Upload Files</h2>
+          <h2><i data-lucide="folder-open"></i> Upload Files</h2>
           <p>Select a folder or files or drag & drop them below.</p>
           <div class="upload-buttons">
             <label class="upload-label">
-              Upload Folder
+              <i data-lucide="folder"></i> Upload Folder
               <input type="file" id="folderInput" webkitdirectory directory multiple hidden>
             </label>
             <label class="upload-label">
-              Upload Files
+              <i data-lucide="file"></i> Upload Files
               <input type="file" id="fileInput" multiple hidden>
             </label>
           </div>
           <div id="dropZone" class="drop-zone">
-            <p>⬇️ Drag & drop files or folders here</p>
+            <p><i data-lucide="download"></i> Drag & drop files or folders here</p>
           </div>
           <ul id="fileList"></ul>
           <p id="uploadStatus">No files uploaded yet.</p>
-          <button id="runButton" disabled>▶️ Run Preview</button>
+          <button id="runButton" disabled><i data-lucide="play"></i> Run Preview</button>
         </div>
       </div>
 
       <!-- PASTE PANEL -->
       <div class="panel" id="pastePanel">
         <div class="panel-content">
-          <h2>✍️ Paste Code</h2>
+          <h2><i data-lucide="pen-tool"></i> Paste Code</h2>
           <p>Paste your snippet below to instantly preview it.</p>
           <label>HTML:</label>
           <textarea id="htmlInput" placeholder="Paste your HTML here..."></textarea>
@@ -77,19 +78,26 @@
           <textarea id="cssInput" placeholder="Paste your CSS here..."></textarea>
           <label>JavaScript:</label>
           <textarea id="jsInput" placeholder="Paste your JS here..."></textarea>
-          <button id="runButtonPaste">▶️ Run Preview</button>
+          <button id="runButtonPaste"><i data-lucide="play"></i> Run Preview</button>
         </div>
       </div>
 
       <!-- GITHUB PANEL -->
       <div class="panel" id="githubPanel">
-        <div class="panel-content">
-          <h2>🐙 Preview from GitHub</h2>
+        <div class="panel-content ui-modern-card" style="text-align: center;">
+          <div class="github-icon-hero" style="margin-bottom: 1rem;">
+             <i data-lucide="github" class="big-github-icon"></i>
+          </div>
+          <h2>Preview from GitHub</h2>
           <p>Enter a public GitHub repository link containing an <code>index.html</code>.</p>
-          <label>GitHub Repository URL:</label>
-          <input type="text" id="githubInput" placeholder="https://github.com/owner/repo" class="text-input" />
-          <p id="githubStatus" class="status-msg">Ready to fetch.</p>
-          <button id="runButtonGithub">☁️ Fetch & Preview</button>
+          
+          <div class="input-modern-wrapper" style="max-width: 500px; margin: 2rem auto;">
+            <i data-lucide="link" class="input-icon"></i>
+            <input type="text" id="githubInput" placeholder="https://github.com/owner/repo" class="text-input modern-input" style="margin-bottom: 0;" />
+          </div>
+          
+          <p id="githubStatus" class="status-msg"><i data-lucide="info" style="width: 14px; height: 14px;"></i> Ready to fetch instantly.</p>
+          <button id="runButtonGithub" class="btn-primary"><i data-lucide="cloud-download"></i> Fetch & Preview</button>
         </div>
       </div>
     </div>
@@ -98,10 +106,11 @@
 </main>
 
 <footer>
-  <p>🚀 Made by <strong>owsam22</strong></p>
-  <p><a href="https://github.com/owsam22" target="_blank" style="margin-top: 0.5rem; display: inline-block;">💻 GitHub</a></p>
+  <p>Made by <strong>owsam22</strong></p>
+  <p><a href="https://github.com/owsam22" target="_blank" style="margin-top: 0.5rem; display: inline-flex; align-items: center; justify-content: center; gap: 4px;"><i data-lucide="github"></i> GitHub</a></p>
 </footer>
 
+<script>lucide.createIcons();</script>
 <script type="module" src="./src/main.ts"></script>
 </body>
 </html>

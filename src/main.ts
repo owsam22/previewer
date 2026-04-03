@@ -10,7 +10,8 @@ const dropZone = document.getElementById('dropZone') as HTMLDivElement;
 export let filesMap: Record<string, string> = {};
 
 export async function handleFiles(fileListInput: FileList | File[]) {
-  uploadStatus.textContent = '📤 Uploading...';
+  uploadStatus.innerHTML = '<i data-lucide="upload-cloud" style="width: 16px; margin-right: 6px;"></i> Uploading...';
+  if ((window as any).lucide) (window as any).lucide.createIcons();
 
   for (const file of Array.from(fileListInput)) {
     const path = file.webkitRelativePath || (file as any).fullPath || file.name;
@@ -29,12 +30,14 @@ export async function handleFiles(fileListInput: FileList | File[]) {
 export function updateReadyStatus(customMessage?: string) {
   const hasHTML = Object.keys(filesMap).some(f => f.endsWith('index.html') || f.endsWith('.html'));
   if (!hasHTML) {
-    uploadStatus.textContent = customMessage || "❌ No HTML file found.";
+    uploadStatus.innerHTML = customMessage || `<i data-lucide="x-circle" style="width: 16px; margin-right: 6px; color: #ef4444;"></i> No HTML file found.`;
+    if ((window as any).lucide) (window as any).lucide.createIcons();
     runBtn.disabled = true;
     return;
   }
 
-  uploadStatus.textContent = customMessage || `✅ ${Object.keys(filesMap).length} files ready.`;
+  uploadStatus.innerHTML = customMessage || `<i data-lucide="check-circle" style="width: 16px; margin-right: 6px; color: #10b981;"></i> ${Object.keys(filesMap).length} files ready.`;
+  if ((window as any).lucide) (window as any).lucide.createIcons();
   runBtn.disabled = false;
 
   fileList.innerHTML = Object.keys(filesMap)
@@ -55,7 +58,7 @@ export function runPreviewFromMap() {
   let html: string = filesMap['index.html'] || Object.entries(filesMap).find(([key]) => key.endsWith('.html'))?.[1] || "";
 
   if (!html) {
-    alert("❌ No HTML file to preview.");
+    alert("No HTML file to preview. Please include an index.html.");
     return;
   }
 
@@ -211,7 +214,7 @@ if (shareButton) {
 
 export function resetAppState() {
     filesMap = {};
-    updateReadyStatus("Started anew. Upload files to continue.");
+    updateReadyStatus(`<i data-lucide="info" style="width: 16px; margin-right: 6px;"></i> Started anew. Upload files to continue.`);
 }
 
 window.addEventListener('DOMContentLoaded', () => {

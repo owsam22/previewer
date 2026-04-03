@@ -12,14 +12,15 @@ export async function handleGitHubSubmit() {
   
   const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)/);
   if (!match) {
-    statusElement.textContent = '❌ Invalid format. Use https://github.com/owner/repo';
+    statusElement.innerHTML = '<i data-lucide="x-circle" style="width: 14px; margin-right: 4px; color: #ef4444;"></i> Invalid format. Use https://github.com/owner/repo';
+    if ((window as any).lucide) (window as any).lucide.createIcons();
     return;
   }
   
   const owner = match[1];
   const repo = match[2].replace('.git', '');
-  
-  statusElement.textContent = '⏳ Fetching repository metadata...';
+    statusElement.innerHTML = '<i data-lucide="loader" style="width: 14px; margin-right: 4px;"></i> Fetching repository structure...';
+    if ((window as any).lucide) (window as any).lucide.createIcons();
   
   try {
     const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
@@ -27,7 +28,8 @@ export async function handleGitHubSubmit() {
     const repoData = await repoRes.json();
     const defaultBranch = repoData.default_branch;
     
-    statusElement.textContent = '⏳ Fetching file tree...';
+    statusElement.innerHTML = '<i data-lucide="loader" style="width: 14px; margin-right: 4px;"></i> Fetching file tree...';
+    if ((window as any).lucide) (window as any).lucide.createIcons();
     const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${defaultBranch}?recursive=1`);
     if (!treeRes.ok) throw new Error('Failed to fetch repository tree.');
     const treeData = await treeRes.json();
@@ -38,11 +40,13 @@ export async function handleGitHubSubmit() {
     });
     
     if (relevantFiles.length === 0) {
-        statusElement.textContent = '❌ No HTML/CSS/JS files found in this repository.';
+        statusElement.innerHTML = `<i data-lucide="x-circle" style="width: 14px; margin-right: 4px; color: #ef4444;"></i> No 'index.html' found in this repository!`;
+        if ((window as any).lucide) (window as any).lucide.createIcons();
         return;
     }
     
-    statusElement.textContent = `⏳ Downloading ${relevantFiles.length} files...`;
+    statusElement.innerHTML = `<i data-lucide="download-cloud" style="width: 14px; margin-right: 4px;"></i> Downloading ${relevantFiles.length} files...`;
+    if ((window as any).lucide) (window as any).lucide.createIcons();
     
     const downloadPromises = relevantFiles.map(async (node: any) => {
         const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${defaultBranch}/${node.path}`;
@@ -64,8 +68,8 @@ export async function handleGitHubSubmit() {
 
     await Promise.all(downloadPromises);
     
-    statusElement.textContent = '✅ Repository successfully loaded!';
-    updateReadyStatus(`✅ Loaded ${owner}/${repo} successfully.`);
+    statusElement.innerHTML = '<i data-lucide="check-circle" style="width: 14px; margin-right: 4px; color: #10b981;"></i> Repository successfully loaded!';
+    updateReadyStatus(`<i data-lucide="check-circle" style="width: 16px; margin-right: 6px; color: #10b981;"></i> Loaded ${owner}/${repo} successfully.`);
     
     // Set shareable token
     localStorage.setItem("previewSourceToken", `?repo=${owner}/${repo}`);
@@ -73,6 +77,6 @@ export async function handleGitHubSubmit() {
     runPreviewFromMap();
 
   } catch (err: any) {
-    statusElement.textContent = `❌ Error: ${err.message}`;
+    statusElement.innerHTML = `<i data-lucide="alert-triangle" style="width: 14px; margin-right: 4px; color: #ef4444;"></i> Error: ${err.message}`;
   }
 }
