@@ -4,102 +4,192 @@
   <meta charset="UTF-8">
   <title>Preview Your Site</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: linear-gradient(135deg, #f0f9ff, #e0ecff);
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2, #ffcc80, #ffd54f);
+      background-size: 300% 300%;
+      animation: gradientBG 20s ease infinite;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-
+    
     .preview-header {
-      padding: 2rem 3rem;
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      background: var(--glass-bg, rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--text-main, #2d3748);
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 10;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     .preview-header h1 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2563eb;
+      font-family: 'DotGothic16', monospace;
+      font-size: 1.5rem;
+      color: var(--primary, #f05454);
     }
 
-    .button-group button {
-      margin-left: 1rem;
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      font-family: 'DotGothic16', monospace;
       padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background: #2563eb;
-      color: white;
+      border: 3px solid var(--text-main, #2d3748);
+      border-radius: 0;
+      background: var(--secondary, #ffb703);
+      color: var(--text-main, #2d3748);
       cursor: pointer;
+      box-shadow: 2px 2px 0 var(--text-main, #2d3748);
+      transition: all 0.1s;
     }
 
-    .button-group button:hover {
-      background: #1d4ed8;
+    .btn:hover {
+      background: #ffc300;
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--text-main, #2d3748);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0px 0px 0 var(--text-main, #2d3748);
+    }
+
+    .btn-home { background: var(--accent, #028090); color: white; }
+    .btn-home:hover { background: #00b4d8; }
+
+    /* Browser/Device Frame */
+    .device-wrapper {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
     }
 
     .preview-container {
-      margin: 2rem auto;
-      max-width: 1000px;
+      width: 100%;
       height: 80vh;
-      border: 2px solid #ddd;
-      border-radius: 12px;
+      max-width: 1280px;
+      background: white;
+      border: 4px solid var(--text-main, #2d3748);
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      box-shadow: 8px 8px 0 var(--text-main, #2d3748);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* macOS style dots */
+    .browser-frame {
+      display: flex;
+      align-items: center;
+      background: #e2e8f0;
+      padding: 0.5rem 1rem;
+      border-bottom: 3px solid var(--text-main, #2d3748);
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--text-main, #2d3748);
+    }
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .url-bar {
+      margin-left: 20px;
+      background: white;
+      border: 2px solid var(--text-main, #2d3748);
+      padding: 2px 10px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      border-radius: 12px;
+      flex: 1;
+      text-align: center;
     }
 
     iframe {
       width: 100%;
-      height: 100%;
+      flex: 1;
       border: none;
+      background: white;
+    }
+    
+    /* Device toggles */
+    .preview-container.mobile {
+      width: 375px;
+      height: 812px;
+    }
+    .preview-container.tablet {
+      width: 768px;
+      height: 1024px;
     }
 
     @media (max-width: 768px) {
       .preview-container {
         height: 70vh;
-        width: 95%;
+        width: 100% !important; 
       }
-      .button-group {
-        display: flex;
-        flex-wrap: wrap;
-      }
+      .device-wrapper { padding: 1rem; }
+      .button-group { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
 
   <header class="preview-header">
-    <h1>🔍 Live Previewer</h1>
+    <h1>🔍 Live Preview</h1>
     <div class="button-group">
-      <button onclick="restartPreview()">Restart</button>
-      <button onclick="goHome()">Home</button>
+      <button class="btn" onclick="setDevice('desktop')">🖥️ Desktop</button>
+      <button class="btn" onclick="setDevice('tablet')">📱 Tablet</button>
+      <button class="btn" onclick="setDevice('mobile')">📱 Mobile</button>
+      <button class="btn btn-home" onclick="restartPreview()">🔄 Restart</button>
+      <button class="btn btn-home" onclick="goHome()">🏠 Home</button>
     </div>
   </header>
 
-  <div class="preview-container">
-    <iframe id="previewFrame"></iframe>
+  <div class="device-wrapper">
+    <div class="preview-container" id="deviceFrame">
+      <div class="browser-frame">
+        <div class="dots">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="url-bar">localhost:preview</div>
+      </div>
+      <iframe id="previewFrame"></iframe>
+    </div>
   </div>
-<footer>
-  <p>🚀 Built with ❤️ by <strong>Sam</strong></p>
-  <p>
-    <a href="https://instagram.com/your_instagram" target="_blank">📸 Instagram</a> |
-    <a href="https://github.com/your_github" target="_blank">💻 GitHub</a>
-  </p>
-</footer>
-
+  
   <script>
     const html = localStorage.getItem("previewHTML");
     const iframe = document.getElementById("previewFrame");
+    const deviceFrame = document.getElementById("deviceFrame");
 
     if (html) {
       iframe.srcdoc = html;
     } else {
-      iframe.srcdoc = `<h2 style="padding:2rem;font-family:sans-serif;text-align:center;">❌ No preview found. Go back and upload your project again.</h2>`;
+      iframe.srcdoc = `<h2 style="padding:2rem;font-family:'Outfit',sans-serif;text-align:center;">❌ No preview found. Go back and upload your project again.</h2>`;
     }
 
     function restartPreview() {
@@ -108,6 +198,10 @@
 
     function goHome() {
       window.location.href = 'index.html';
+    }
+    
+    function setDevice(type) {
+      deviceFrame.className = 'preview-container ' + type;
     }
   </script>
 
