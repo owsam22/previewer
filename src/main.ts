@@ -208,3 +208,34 @@ export function resetAppState() {
     filesMap = {};
     updateReadyStatus("Started anew. Upload files to continue.");
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    // 1. Check URL parameters (e.g. ?repo=owsam22/previewer)
+    const urlParams = new URLSearchParams(window.location.search);
+    let repoUrl = urlParams.get('repo');
+
+    // 2. Or check pathname if user replaced github.com -> previewer-one.vercel.app
+    // Pathname might be "/owsam22/previewer"
+    const path = window.location.pathname.replace(/^\/+/, '');
+    // Ignore if it's just index.html, preview.html, or empty
+    if (!repoUrl && path && !path.includes('.html') && path.split('/').length >= 2) {
+        repoUrl = `https://github.com/${path}`;
+    }
+
+    if (repoUrl) {
+        const githubInput = document.getElementById('githubInput') as HTMLInputElement;
+        if (githubInput) {
+            githubInput.value = repoUrl.startsWith('http') ? repoUrl : `https://github.com/${repoUrl}`;
+            
+            // Switch to github tab visually
+            const ghTab = document.querySelector('[data-target="githubPanel"]') as HTMLElement;
+            if (ghTab) ghTab.click();
+
+            // Auto-trigger fetch
+            setTimeout(() => {
+                const runBtnGithub = document.getElementById('runButtonGithub');
+                if (runBtnGithub) runBtnGithub.click();
+            }, 300);
+        }
+    }
+});
