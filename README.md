@@ -2,7 +2,7 @@
 
 A modern, fast, and feature-rich Live Web Previewer built with pure HTML, CSS, and Vanilla JavaScript. It allows you to preview your web projects instantly without needing a backend or a local server.
 
-live link: https://owsam22.github.io/previewer/
+live link: https://previewer-one.vercel.app/
 
 ## Features
 - **Upload Entire Folders**: Select a folder containing HTML, CSS, and JS files, and it will stitch them together.
