@@ -66,6 +66,10 @@ export async function handleGitHubSubmit() {
     
     statusElement.textContent = '✅ Repository successfully loaded!';
     updateReadyStatus(`✅ Loaded ${owner}/${repo} successfully.`);
+    
+    // Set shareable token
+    localStorage.setItem("previewSourceToken", `?repo=${owner}/${repo}`);
+    
     runPreviewFromMap();
 
   } catch (err: any) {

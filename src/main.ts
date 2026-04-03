@@ -77,6 +77,7 @@ export function runPreviewFromMap() {
     }
   }
 
+  localStorage.setItem("previewSourceToken", ""); // Uploads cannot be shared
   localStorage.setItem("previewHTML", html);
   window.location.href = 'preview.html';
 }
@@ -174,6 +175,10 @@ runBtnPaste?.addEventListener('click', () => {
       finalHTML = finalHTML + `<script>${js}</script>`;
     }
   }
+  
+  // Create a base64 token of the paste for sharing
+  const pastePayload = btoa(encodeURIComponent(JSON.stringify({ h: html, c: css, j: js })));
+  localStorage.setItem("previewSourceToken", `?paste=${pastePayload}`);
 
   localStorage.setItem("previewHTML", finalHTML);
   window.location.href = 'preview.html';
@@ -210,8 +215,31 @@ export function resetAppState() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. Check URL parameters (e.g. ?repo=owsam22/previewer)
     const urlParams = new URLSearchParams(window.location.search);
+    
+    // 0. Check Paste parameters
+    const pasteUrl = urlParams.get('paste');
+    if (pasteUrl) {
+        try {
+            const decoded = JSON.parse(decodeURIComponent(atob(pasteUrl)));
+            (document.getElementById('htmlInput') as HTMLTextAreaElement).value = decoded.h || '';
+            (document.getElementById('cssInput') as HTMLTextAreaElement).value = decoded.c || '';
+            (document.getElementById('jsInput') as HTMLTextAreaElement).value = decoded.j || '';
+            
+            const pasteTab = document.querySelector('[data-target="pastePanel"]') as HTMLElement;
+            if (pasteTab) pasteTab.click();
+
+            setTimeout(() => {
+                const runBtnPaste = document.getElementById('runButtonPaste');
+                if (runBtnPaste) runBtnPaste.click();
+            }, 300);
+            return;
+        } catch (e) {
+            console.error("Failed to parse paste URL", e);
+        }
+    }
+
+    // 1. Check URL parameters (e.g. ?repo=owsam22/previewer)
     let repoUrl = urlParams.get('repo');
 
     // 2. Or check pathname if user replaced github.com -> previewer-one.vercel.app

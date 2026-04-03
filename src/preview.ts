@@ -21,3 +21,33 @@ if (html && iframe) {
     deviceFrame.className = 'preview-container ' + type;
   }
 };
+
+(window as any).sharePreview = async () => {
+  const token = localStorage.getItem("previewSourceToken");
+  if (!token) {
+    alert("Local file uploads cannot be shared via URL. Please use the Paste or GitHub features to generate a shareable link!");
+    return;
+  }
+
+  // Construct URL. e.g. https://previewer-one.vercel.app/?repo=user/repo
+  // We use standard pathname (origin) + token, removing any preview.html that might be in the path locally.
+  const appBaseUrl = window.location.origin + window.location.pathname.replace('preview.html', '');
+  const shareUrl = appBaseUrl + token;
+
+  const shareData = {
+    title: 'Live Web Preview',
+    text: 'Check out this live preview I generated!',
+    url: shareUrl
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      alert('Preview URL copied to clipboard!');
+    }
+  } catch (err) {
+    console.error('Error sharing:', err);
+  }
+};
