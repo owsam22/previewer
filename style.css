@@ -7,8 +7,8 @@
 
 :root {
   --bg-color: #fcfbfa; /* Very subtle warm white */
-  --text-main: #1e293b; /* Slate 800 */
-  --text-light: #64748b; /* Slate 500 */
+  --text-main: #0f172a; /* Slate 900 for ultra high contrast */
+  --text-light: #334155; /* Slate 700 for better readability */
   --border-color: #cbd5e1; /* Slate 300 */
   --primary: #0f172a; /* Slate 900 for professional contrast */
   --secondary: #eab308; /* Warm Yellow accent */
@@ -145,17 +145,26 @@ a:hover {
 /* Hero */
 .hero {
   text-align: center;
-  padding: 4rem 2rem 2rem;
+  padding: 3rem 2rem;
+  margin: 1rem auto 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
 }
 .hero h1 {
-  font-size: 3rem;
+  font-size: 3.2rem;
   margin-bottom: 1rem;
-  color: var(--text-main);
+  color: var(--primary);
+  text-shadow: 0 2px 10px rgba(255,255,255,0.8);
 }
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--text-light);
-  max-width: 600px;
+  font-weight: 500;
+  max-width: 650px;
   margin: 0 auto;
 }
 
@@ -427,7 +436,11 @@ button:disabled {
 footer {
   text-align: center;
   padding: 1.5rem;
-  color: var(--text-light);
+  color: var(--text-main);
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  font-weight: 600;
   margin-top: 2rem;
 }
 
