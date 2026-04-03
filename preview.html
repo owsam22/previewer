@@ -32,9 +32,23 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
 
-    .header-left, .header-center, .header-right {
+    .header-left {
       display: flex;
       align-items: center;
+      flex: 1;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex: 1;
     }
 
     .preview-header h1 {
@@ -221,15 +235,19 @@
     <div class="header-left">
       <h1><i data-lucide="search"></i> Live Preview</h1>
     </div>
-    <div class="header-center button-group">
-      <button class="preview-btn" onclick="setDevice('desktop')" title="Desktop"><i data-lucide="monitor"></i></button>
-      <button class="preview-btn" onclick="setDevice('tablet')" title="Tablet"><i data-lucide="tablet"></i></button>
-      <button class="preview-btn" onclick="setDevice('mobile')" title="Mobile"><i data-lucide="smartphone"></i></button>
+    <div class="header-center">
+      <div class="button-group">
+        <button class="preview-btn" onclick="setDevice('desktop')" title="Desktop"><i data-lucide="monitor"></i></button>
+        <button class="preview-btn" onclick="setDevice('tablet')" title="Tablet"><i data-lucide="tablet"></i></button>
+        <button class="preview-btn" onclick="setDevice('mobile')" title="Mobile"><i data-lucide="smartphone"></i></button>
+      </div>
     </div>
-    <div class="header-right button-group">
-      <button class="preview-btn action-btn" onclick="sharePreview()" title="Share Preview"><i data-lucide="link"></i> <span>Share</span></button>
-      <button class="preview-btn action-btn" onclick="restartPreview()" title="Restart"><i data-lucide="rotate-cw"></i> <span>Restart</span></button>
-      <button class="preview-btn action-btn primary-action" onclick="goHome()" title="Home"><i data-lucide="home"></i> <span>Home</span></button>
+    <div class="header-right">
+      <div class="button-group">
+        <button class="preview-btn action-btn" onclick="sharePreview()" title="Share Preview"><i data-lucide="link"></i> <span>Share</span></button>
+        <button class="preview-btn action-btn" onclick="restartPreview()" title="Restart"><i data-lucide="rotate-cw"></i> <span>Restart</span></button>
+        <button class="preview-btn action-btn primary-action" onclick="goHome()" title="Home"><i data-lucide="home"></i> <span>Home</span></button>
+      </div>
     </div>
   </header>
 
